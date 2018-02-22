@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "843153056865",
+    "firebase_url": "https://ngelih-d0bfe.firebaseio.com",
+    "project_id": "ngelih-d0bfe",
+    "storage_bucket": "ngelih-d0bfe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843153056865:android:f155548321d3c60c",
+        "android_client_info": {
+          "package_name": "com.mythcon.savr.ngelih"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843153056865-4rrj3avto1pk84erpibfhl7sp3uqon7n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mythcon.savr.ngelih",
+            "certificate_hash": "41ede4b350092bb21d141b6c4cae206b4b9d898c"
+          }
+        },
+        {
+          "client_id": "843153056865-2rbem741s7c35a51ssc4eorke024g3ih.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbsuPVFUe-Tm-HaLI72u3YZd68ijH4J_A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "843153056865-2rbem741s7c35a51ssc4eorke024g3ih.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
