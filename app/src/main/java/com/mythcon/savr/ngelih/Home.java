@@ -1,5 +1,6 @@
 package com.mythcon.savr.ngelih;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -36,6 +37,8 @@ public class Home extends AppCompatActivity
 
     RecyclerView recycler_menu;
     RecyclerView.LayoutManager layoutManager;
+
+    FirebaseRecyclerAdapter<Category,MenuViewHolder> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +88,7 @@ public class Home extends AppCompatActivity
 
     private void loadMenu() {
 
-        FirebaseRecyclerAdapter<Category,MenuViewHolder> adapter = new FirebaseRecyclerAdapter<Category,
+        adapter = new FirebaseRecyclerAdapter<Category,
                 MenuViewHolder>(Category.class,R.layout.menu_item,MenuViewHolder.class,category)
         {
             @Override
@@ -98,7 +101,10 @@ public class Home extends AppCompatActivity
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onclick(View view, int position, boolean isLongClick) {
-                        Toast.makeText(Home.this, "" + clickitem.getName(), Toast.LENGTH_SHORT).show();
+                        Intent foodlist = new Intent(Home.this,FoodList.class);
+                        //get Category ID
+                        foodlist.putExtra("CategoryId",adapter.getRef(position).getKey());
+                        startActivity(foodlist);
                     }
                 });
             }
