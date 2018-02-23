@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:fitsSystemWindows="true"
-            app:layout_scrollFlags="exitUntilCollapsed"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="#0e0d0e"
             app:expandedTitleTextAppearance="@android:color/transparent">
 
@@ -44,8 +44,8 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btn_cart"
+        app:backgroundTint="@android:color/white"
         android:src="@drawable/ic_shopping_cart_black_24dp"
-        android:backgroundTint="@android:color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:elevation="6dp"
