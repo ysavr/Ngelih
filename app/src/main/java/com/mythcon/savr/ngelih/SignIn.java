@@ -48,10 +48,9 @@ public class SignIn extends AppCompatActivity {
 
                         if (dataSnapshot.child(edtPhone.getText().toString()).exists()) {
                             progressDialog.dismiss();
-
                             User user = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
+                            user.setPhone(edtPhone.getText().toString());
 
-                            //Toast.makeText(SignIn.this, edtPass.getText().toString(), Toast.LENGTH_SHORT).show();
                             if (user.getPass().equals(edtPass.getText().toString()))
                             {
                                 Intent toHOme = new Intent(SignIn.this,Home.class);

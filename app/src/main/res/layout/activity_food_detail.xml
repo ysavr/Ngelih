@@ -16,10 +16,11 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="300dp"
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="#0e0d0e"
+            android:background="@android:color/white"
             app:expandedTitleTextAppearance="@android:color/transparent">
 
             <ImageView
@@ -98,7 +99,7 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_attach_money_black_24dp"/>
+                        android:src="@drawable/ic_money"/>
 
                     <TextView
                         android:id="@+id/food_price"

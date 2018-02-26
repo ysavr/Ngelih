@@ -7,6 +7,7 @@ package com.mythcon.savr.ngelih.Model;
 public class User {
     private String name;
     private String pass;
+    private String phone;
 
     public User() {
     }
@@ -14,6 +15,15 @@ public class User {
     public User(String name, String pass) {
         this.name = name;
         this.pass = pass;
+
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getName() {
