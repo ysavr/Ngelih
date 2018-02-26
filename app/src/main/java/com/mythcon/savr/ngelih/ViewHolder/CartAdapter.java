@@ -21,6 +21,9 @@ import java.util.Locale;
 
 /**
  * Created by SAVR on 26/02/2018.
+ * Class ini untuk menampung daftar menu yang dipesan sebelumnya pada Food Detail
+ * Class ini berhubungan dengan class Cart
+ * untuk proses pada button terdapat pada class Cart
  */
 
 class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

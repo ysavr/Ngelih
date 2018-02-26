@@ -17,6 +17,10 @@ import com.mythcon.savr.ngelih.Model.Food;
 import com.mythcon.savr.ngelih.ViewHolder.FoodViewHolder;
 import com.squareup.picasso.Picasso;
 
+/**
+ * Menampilkan List Menu Makanan
+ */
+
 public class FoodList extends AppCompatActivity {
 
     RecyclerView recyclerView;
@@ -43,7 +47,7 @@ public class FoodList extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        //Get Intent from Home (Category ID)
+        //Get Intent from Home  - mengambil(Category ID)
         if (getIntent()!= null)
             categoryId = getIntent().getStringExtra("CategoryId");
         if (!categoryId.isEmpty() && categoryId != null){

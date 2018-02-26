@@ -13,6 +13,8 @@ import java.util.List;
 
 /**
  * Created by SAVR on 26/02/2018.
+ * Digunakan untuk menyimpan Order di dalam database local dengan SQLite Database
+ * Selanjutnya di PUSH ke Firebase Database Pada Class Cart
  */
 
 public class Database extends SQLiteAssetHelper {

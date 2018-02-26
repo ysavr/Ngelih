@@ -19,6 +19,9 @@ import com.mythcon.savr.ngelih.Databases.Database;
 import com.mythcon.savr.ngelih.Model.Food;
 import com.mythcon.savr.ngelih.Model.Order;
 import com.squareup.picasso.Picasso;
+/**
+ * Menampilkan Detail menu dari list menu
+ */
 
 public class FoodDetail extends AppCompatActivity {
 
@@ -39,7 +42,7 @@ public class FoodDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_detail);
 
-        //inisialisasi Forebase
+        //inisialisasi Firebase
 
         database = FirebaseDatabase.getInstance();
         foods = database.getReference("Foods");

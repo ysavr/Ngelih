@@ -28,6 +28,13 @@ import java.util.Locale;
 
 import info.hoang8f.widget.FButton;
 
+/**
+ * Daftar menu yang sebelumnya ditampung pada class CartAdapter
+ * Daftar menu dari class CartAdapter yang nanti di PUSH dari class ini
+ * Digunakan Untuk PUSH dari database local (SQLite) ke Firebase
+ * PUSH ke Node Request
+ */
+
 public class Cart extends AppCompatActivity {
 
     RecyclerView recyclerView;

@@ -4,6 +4,7 @@ import com.mythcon.savr.ngelih.Model.User;
 
 /**
  * Created by SAVR on 20/02/2018.
+ * untuk membuat current user
  */
 
 public class Common {
