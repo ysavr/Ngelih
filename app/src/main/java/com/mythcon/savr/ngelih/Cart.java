@@ -33,6 +33,7 @@ import info.hoang8f.widget.FButton;
  * Daftar menu dari class CartAdapter yang nanti di PUSH dari class ini
  * Digunakan Untuk PUSH dari database local (SQLite) ke Firebase
  * PUSH ke Node Request
+ * test clone and branch
  */
 
 public class Cart extends AppCompatActivity {
