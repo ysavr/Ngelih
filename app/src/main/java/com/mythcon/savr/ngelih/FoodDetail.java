@@ -1,5 +1,6 @@
 package com.mythcon.savr.ngelih;
 
+import android.graphics.Typeface;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -70,7 +71,7 @@ public class FoodDetail extends AppCompatActivity {
         food_image = (ImageView) findViewById(R.id.img_food);
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing);
-        collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.ExpandedAppBar);
+        collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
 
         //Get From Intent
@@ -90,11 +91,15 @@ public class FoodDetail extends AppCompatActivity {
 
                 Picasso.with(getBaseContext()).load(currentFood.getImage())
                         .into(food_image);
-
+                Typeface typeface = Typeface.createFromAsset(getAssets(),"fonts/NABILA.TTF");
                 collapsingToolbarLayout.setTitle(currentFood.getName());
+
+                collapsingToolbarLayout.setCollapsedTitleTypeface(typeface);
+                collapsingToolbarLayout.setExpandedTitleTypeface(typeface);
 
                 food_price.setText(currentFood.getPrice());
                 food_name.setText(currentFood.getName());
+                food_name.setVisibility(View.GONE);
                 food_description.setText(currentFood.getDescription());
             }
 

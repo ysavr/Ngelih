@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -38,6 +39,8 @@ public class Home extends AppCompatActivity
     RecyclerView recycler_menu;
     RecyclerView.LayoutManager layoutManager;
 
+    ShimmerFrameLayout shimmerContainer;
+
     FirebaseRecyclerAdapter<Category,MenuViewHolder> adapter;
 
     @Override
@@ -48,11 +51,10 @@ public class Home extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Menu");
         setSupportActionBar(toolbar);
-
         //init FIrebase
         database = FirebaseDatabase.getInstance();
         category = database.getReference("Category");
-
+        shimmerContainer = (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container); //buat animasi loading parsing data
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -82,12 +84,10 @@ public class Home extends AppCompatActivity
         recycler_menu.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recycler_menu.setLayoutManager(layoutManager);
-
-        loadMenu();
     }
 
     private void loadMenu() {
-
+        shimmerContainer.startShimmerAnimation();
         adapter = new FirebaseRecyclerAdapter<Category,
                 MenuViewHolder>(Category.class,R.layout.menu_item,MenuViewHolder.class,category)
         {
@@ -96,6 +96,9 @@ public class Home extends AppCompatActivity
                 viewHolder.textMenuName.setText(model.getName());
                 Picasso.with(getBaseContext()).load(model.getImage())
                         .into(viewHolder.imageView);
+
+                shimmerContainer.stopShimmerAnimation();  //Stop animation
+                shimmerContainer.setVisibility(View.GONE);
 
                 final Category clickitem = model;
                 viewHolder.setItemClickListener(new ItemClickListener() {
@@ -131,7 +134,6 @@ public class Home extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -158,5 +160,18 @@ public class Home extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        shimmerContainer.startShimmerAnimation();
+        loadMenu();
+    }
+
+    @Override
+    protected void onPause() {
+        shimmerContainer.stopShimmerAnimation();
+        super.onPause();
     }
 }

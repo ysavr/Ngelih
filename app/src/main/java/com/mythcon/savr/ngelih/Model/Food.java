@@ -6,6 +6,7 @@ package com.mythcon.savr.ngelih.Model;
 
 public class Food {
     private String Name, Image, Description, Price, Discount, MenuId;
+    private boolean showShimmer;
 
     public Food() {
     }
@@ -65,5 +66,13 @@ public class Food {
 
     public void setMenuId(String menuId) {
         MenuId = menuId;
+    }
+
+    public boolean isShowShimmer() {
+        return showShimmer;
+    }
+
+    public void setShowShimmer(boolean showShimmer) {
+        this.showShimmer = showShimmer;
     }
 }
