@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.mythcon.savr.ngelih.Common.Common;
 import com.mythcon.savr.ngelih.Interface.ItemClickListener;
 import com.mythcon.savr.ngelih.Model.Category;
+import com.mythcon.savr.ngelih.Service.ListenOrder;
 import com.mythcon.savr.ngelih.ViewHolder.MenuViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -84,6 +85,10 @@ public class Home extends AppCompatActivity
         recycler_menu.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recycler_menu.setLayoutManager(layoutManager);
+
+        //Register Service
+        Intent service = new Intent(Home.this, ListenOrder.class);
+        startService(service);
     }
 
     private void loadMenu() {
