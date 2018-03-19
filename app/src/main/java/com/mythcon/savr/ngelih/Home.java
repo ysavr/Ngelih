@@ -93,31 +93,37 @@ public class Home extends AppCompatActivity
 
     private void loadMenu() {
         shimmerContainer.startShimmerAnimation();
-        adapter = new FirebaseRecyclerAdapter<Category,
-                MenuViewHolder>(Category.class,R.layout.menu_item,MenuViewHolder.class,category)
-        {
-            @Override
-            protected void populateViewHolder(MenuViewHolder viewHolder, Category model, int position) {
-                viewHolder.textMenuName.setText(model.getName());
-                Picasso.with(getBaseContext()).load(model.getImage())
-                        .into(viewHolder.imageView);
+        if (Common.isConnectedToInternet(this)) {
 
-                shimmerContainer.stopShimmerAnimation();  //Stop animation
-                shimmerContainer.setVisibility(View.GONE);
+            adapter = new FirebaseRecyclerAdapter<Category,
+                    MenuViewHolder>(Category.class, R.layout.menu_item, MenuViewHolder.class, category) {
+                @Override
+                protected void populateViewHolder(MenuViewHolder viewHolder, Category model, int position) {
+                    viewHolder.textMenuName.setText(model.getName());
+                    Picasso.with(getBaseContext()).load(model.getImage())
+                            .into(viewHolder.imageView);
 
-                final Category clickitem = model;
-                viewHolder.setItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onclick(View view, int position, boolean isLongClick) {
-                        Intent foodlist = new Intent(Home.this,FoodList.class);
-                        //get Category ID
-                        foodlist.putExtra("CategoryId",adapter.getRef(position).getKey());
-                        startActivity(foodlist);
-                    }
-                });
-            }
-        };
-        recycler_menu.setAdapter(adapter);
+                    shimmerContainer.stopShimmerAnimation();  //Stop animation
+                    shimmerContainer.setVisibility(View.GONE);
+
+                    final Category clickitem = model;
+                    viewHolder.setItemClickListener(new ItemClickListener() {
+                        @Override
+                        public void onclick(View view, int position, boolean isLongClick) {
+                            Intent foodlist = new Intent(Home.this, FoodList.class);
+                            //get Category ID
+                            foodlist.putExtra("CategoryId", adapter.getRef(position).getKey());
+                            startActivity(foodlist);
+                        }
+                    });
+                }
+            };
+            recycler_menu.setAdapter(adapter);
+
+        }else {
+            Toast.makeText(this, "Please check you internet connection !!", Toast.LENGTH_SHORT).show();
+            return;
+        }
     }
 
     @Override
@@ -139,6 +145,8 @@ public class Home extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.refresh)
+            loadMenu();
         return super.onOptionsItemSelected(item);
     }
 

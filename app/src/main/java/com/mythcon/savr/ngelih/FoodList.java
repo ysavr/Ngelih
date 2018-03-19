@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.mythcon.savr.ngelih.Common.Common;
 import com.mythcon.savr.ngelih.Interface.ItemClickListener;
 import com.mythcon.savr.ngelih.Model.Food;
 import com.mythcon.savr.ngelih.ViewHolder.FoodViewHolder;
@@ -66,7 +67,12 @@ public class FoodList extends AppCompatActivity {
         if (getIntent()!= null)
             categoryId = getIntent().getStringExtra("CategoryId");
         if (!categoryId.isEmpty() && categoryId != null){
-            loadListFood(categoryId);
+            if (Common.isConnectedToInternet(getBaseContext()))
+                loadListFood(categoryId);
+            else {
+                Toast.makeText(FoodList.this, "Please check you internet connection !!", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
 
         //Search

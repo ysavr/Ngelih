@@ -38,41 +38,47 @@ public class SignIn extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final ProgressDialog progressDialog = new ProgressDialog(SignIn.this);
-                progressDialog.setMessage("Please wait...");
-                progressDialog.show();
+                if (Common.isConnectedToInternet(getBaseContext())){
+                    final ProgressDialog progressDialog = new ProgressDialog(SignIn.this);
+                    progressDialog.setMessage("Please wait...");
+                    progressDialog.show();
 
-                table_user.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    table_user.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        if (dataSnapshot.child(edtPhone.getText().toString()).exists()) {
-                            progressDialog.dismiss();
-                            User user = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
-                            user.setPhone(edtPhone.getText().toString());
+                            if (dataSnapshot.child(edtPhone.getText().toString()).exists()) {
+                                progressDialog.dismiss();
+                                User user = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
+                                user.setPhone(edtPhone.getText().toString());
 
-                            if (user.getPass().equals(edtPass.getText().toString()))
-                            {
-                                Intent toHOme = new Intent(SignIn.this,Home.class);
-                                Common.currentUser = user;
-                                startActivity(toHOme);
-                                finish();
+                                if (user.getPass().equals(edtPass.getText().toString()))
+                                {
+                                    Intent toHOme = new Intent(SignIn.this,Home.class);
+                                    Common.currentUser = user;
+                                    startActivity(toHOme);
+                                    finish();
+                                }
+                                else {
+                                    Toast.makeText(SignIn.this, "Wrong password !!", Toast.LENGTH_SHORT).show();
+                                }
                             }
                             else {
-                                Toast.makeText(SignIn.this, "Wrong password !!", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                                Toast.makeText(SignIn.this, "User not exist !!", Toast.LENGTH_SHORT).show();
                             }
                         }
-                        else {
-                            progressDialog.dismiss();
-                            Toast.makeText(SignIn.this, "User not exist !!", Toast.LENGTH_SHORT).show();
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                    });
+                }
+                else {
+                    Toast.makeText(SignIn.this, "Please check you internet connection !!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
         });
     }
