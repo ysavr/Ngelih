@@ -8,6 +8,7 @@ public class User {
     private String name;
     private String pass;
     private String phone;
+    private String IsStaff;
 
     public User() {
     }
@@ -15,7 +16,7 @@ public class User {
     public User(String name, String pass) {
         this.name = name;
         this.pass = pass;
-
+        IsStaff = "false";
     }
 
     public String getPhone() {
@@ -40,5 +41,13 @@ public class User {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public String getIsStaff() {
+        return IsStaff;
+    }
+
+    public void setIsStaff(String isStaff) {
+        IsStaff = isStaff;
     }
 }

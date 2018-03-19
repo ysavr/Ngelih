@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.mythcon.savr.ngelih.Common.Common;
 import com.mythcon.savr.ngelih.Interface.ItemClickListener;
 import com.mythcon.savr.ngelih.Model.Food;
 import com.mythcon.savr.ngelih.ViewHolder.FoodViewHolder;
@@ -66,7 +67,12 @@ public class FoodList extends AppCompatActivity {
         if (getIntent()!= null)
             categoryId = getIntent().getStringExtra("CategoryId");
         if (!categoryId.isEmpty() && categoryId != null){
-            loadListFood(categoryId);
+            if (Common.isConnectedToInternet(getBaseContext()))
+                loadListFood(categoryId);
+            else {
+                Toast.makeText(FoodList.this, "Please check you internet connection !!", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
 
         //Search
@@ -129,7 +135,7 @@ public class FoodList extends AppCompatActivity {
                 Food.class,
                 R.layout.food_item,
                 FoodViewHolder.class,
-                foodList.orderByChild("Name").equalTo(text.toString())
+                foodList.orderByChild("name").equalTo(text.toString())
         ) {
             @Override
             protected void populateViewHolder(FoodViewHolder viewHolder, Food model, int position) {
@@ -152,7 +158,7 @@ public class FoodList extends AppCompatActivity {
     }
 
     private void loadSuggest() {
-        foodList.orderByChild("MenuId").equalTo(categoryId)
+        foodList.orderByChild("menuId").equalTo(categoryId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -172,7 +178,7 @@ public class FoodList extends AppCompatActivity {
     private void loadListFood(String categoryId) {
         adapter = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class,R.layout.food_item,
                 FoodViewHolder.class,
-                foodList.orderByChild("MenuId").equalTo(categoryId))    //query select where
+                foodList.orderByChild("menuId").equalTo(categoryId))    //query select where
         {
             @Override
             protected void populateViewHolder(FoodViewHolder viewHolder, Food model, int position) {

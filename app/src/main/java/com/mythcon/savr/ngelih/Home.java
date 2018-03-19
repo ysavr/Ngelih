@@ -18,12 +18,14 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mythcon.savr.ngelih.Common.Common;
 import com.mythcon.savr.ngelih.Interface.ItemClickListener;
 import com.mythcon.savr.ngelih.Model.Category;
+import com.mythcon.savr.ngelih.Service.ListenOrder;
 import com.mythcon.savr.ngelih.ViewHolder.MenuViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -38,6 +40,8 @@ public class Home extends AppCompatActivity
     RecyclerView recycler_menu;
     RecyclerView.LayoutManager layoutManager;
 
+    ShimmerFrameLayout shimmerContainer;
+
     FirebaseRecyclerAdapter<Category,MenuViewHolder> adapter;
 
     @Override
@@ -48,11 +52,10 @@ public class Home extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Menu");
         setSupportActionBar(toolbar);
-
         //init FIrebase
         database = FirebaseDatabase.getInstance();
         category = database.getReference("Category");
-
+        shimmerContainer = (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container); //buat animasi loading parsing data
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -83,33 +86,44 @@ public class Home extends AppCompatActivity
         layoutManager = new LinearLayoutManager(this);
         recycler_menu.setLayoutManager(layoutManager);
 
-        loadMenu();
+        //Register Service
+        Intent service = new Intent(Home.this, ListenOrder.class);
+        startService(service);
     }
 
     private void loadMenu() {
+        shimmerContainer.startShimmerAnimation();
+        if (Common.isConnectedToInternet(this)) {
 
-        adapter = new FirebaseRecyclerAdapter<Category,
-                MenuViewHolder>(Category.class,R.layout.menu_item,MenuViewHolder.class,category)
-        {
-            @Override
-            protected void populateViewHolder(MenuViewHolder viewHolder, Category model, int position) {
-                viewHolder.textMenuName.setText(model.getName());
-                Picasso.with(getBaseContext()).load(model.getImage())
-                        .into(viewHolder.imageView);
+            adapter = new FirebaseRecyclerAdapter<Category,
+                    MenuViewHolder>(Category.class, R.layout.menu_item, MenuViewHolder.class, category) {
+                @Override
+                protected void populateViewHolder(MenuViewHolder viewHolder, Category model, int position) {
+                    viewHolder.textMenuName.setText(model.getName());
+                    Picasso.with(getBaseContext()).load(model.getImage())
+                            .into(viewHolder.imageView);
 
-                final Category clickitem = model;
-                viewHolder.setItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onclick(View view, int position, boolean isLongClick) {
-                        Intent foodlist = new Intent(Home.this,FoodList.class);
-                        //get Category ID
-                        foodlist.putExtra("CategoryId",adapter.getRef(position).getKey());
-                        startActivity(foodlist);
-                    }
-                });
-            }
-        };
-        recycler_menu.setAdapter(adapter);
+                    shimmerContainer.stopShimmerAnimation();  //Stop animation
+                    shimmerContainer.setVisibility(View.GONE);
+
+                    final Category clickitem = model;
+                    viewHolder.setItemClickListener(new ItemClickListener() {
+                        @Override
+                        public void onclick(View view, int position, boolean isLongClick) {
+                            Intent foodlist = new Intent(Home.this, FoodList.class);
+                            //get Category ID
+                            foodlist.putExtra("CategoryId", adapter.getRef(position).getKey());
+                            startActivity(foodlist);
+                        }
+                    });
+                }
+            };
+            recycler_menu.setAdapter(adapter);
+
+        }else {
+            Toast.makeText(this, "Please check you internet connection !!", Toast.LENGTH_SHORT).show();
+            return;
+        }
     }
 
     @Override
@@ -131,7 +145,8 @@ public class Home extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        if (item.getItemId() == R.id.refresh)
+            loadMenu();
         return super.onOptionsItemSelected(item);
     }
 
@@ -158,5 +173,18 @@ public class Home extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        shimmerContainer.startShimmerAnimation();
+        loadMenu();
+    }
+
+    @Override
+    protected void onPause() {
+        shimmerContainer.stopShimmerAnimation();
+        super.onPause();
     }
 }

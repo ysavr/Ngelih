@@ -3,6 +3,7 @@ package com.mythcon.savr.ngelih.ViewHolder;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.mythcon.savr.ngelih.Common.Common;
 import com.mythcon.savr.ngelih.Interface.ItemClickListener;
 import com.mythcon.savr.ngelih.Model.Order;
 import com.mythcon.savr.ngelih.R;
@@ -26,7 +28,8 @@ import java.util.Locale;
  * untuk proses pada button terdapat pada class Cart
  */
 
-class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
+        View.OnCreateContextMenuListener{
 
     public TextView txt_cart_name,txt_price;
     public ImageView img_cart_count;
@@ -42,11 +45,19 @@ class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         txt_cart_name = itemView.findViewById(R.id.cart_item_name);
         txt_price = itemView.findViewById(R.id.cart_item_price);
         img_cart_count = itemView.findViewById(R.id.cart_item_count);
+
+        itemView.setOnCreateContextMenuListener(this);
     }
 
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        menu.setHeaderTitle("Select action");
+        menu.add(0,0,getAdapterPosition(), Common.DELETE);
     }
 }
 

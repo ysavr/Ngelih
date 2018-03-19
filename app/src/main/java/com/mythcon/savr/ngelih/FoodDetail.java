@@ -1,5 +1,6 @@
 package com.mythcon.savr.ngelih;
 
+import android.graphics.Typeface;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mythcon.savr.ngelih.Common.Common;
 import com.mythcon.savr.ngelih.Databases.Database;
 import com.mythcon.savr.ngelih.Model.Food;
 import com.mythcon.savr.ngelih.Model.Order;
@@ -70,7 +72,7 @@ public class FoodDetail extends AppCompatActivity {
         food_image = (ImageView) findViewById(R.id.img_food);
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing);
-        collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.ExpandedAppBar);
+        collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
 
         //Get From Intent
@@ -78,7 +80,12 @@ public class FoodDetail extends AppCompatActivity {
             foodId = getIntent().getStringExtra("FoodId");
         if (!foodId.isEmpty())
         {
-            getDetailFood(foodId);
+            if (Common.isConnectedToInternet(getBaseContext()))
+                getDetailFood(foodId);
+            else{
+                Toast.makeText(FoodDetail.this, "Please check you internet connection !!", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
     }
 
@@ -90,11 +97,15 @@ public class FoodDetail extends AppCompatActivity {
 
                 Picasso.with(getBaseContext()).load(currentFood.getImage())
                         .into(food_image);
-
+                Typeface typeface = Typeface.createFromAsset(getAssets(),"fonts/NABILA.TTF");
                 collapsingToolbarLayout.setTitle(currentFood.getName());
+
+                collapsingToolbarLayout.setCollapsedTitleTypeface(typeface);
+                collapsingToolbarLayout.setExpandedTitleTypeface(typeface);
 
                 food_price.setText(currentFood.getPrice());
                 food_name.setText(currentFood.getName());
+                food_name.setVisibility(View.GONE);
                 food_description.setText(currentFood.getDescription());
             }
 

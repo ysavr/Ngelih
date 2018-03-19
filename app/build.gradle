@@ -40,6 +40,7 @@ dependencies {
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
     compile 'com.github.mancj:MaterialSearchBar:0.7.1'
+    compile 'com.facebook.shimmer:shimmer:0.1.0@aar'
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'
