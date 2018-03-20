@@ -18,7 +18,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class SignUp extends AppCompatActivity {
 
-    MaterialEditText edtPhone,edtName,edtPassword;
+    MaterialEditText edtPhone,edtName,edtPassword,edtSecureCode;
     Button btnSignUp;
 
     @Override
@@ -29,6 +29,7 @@ public class SignUp extends AppCompatActivity {
         edtPhone = (MaterialEditText) findViewById(R.id.edtPhone);
         edtName = (MaterialEditText) findViewById(R.id.edtName);
         edtPassword = (MaterialEditText) findViewById(R.id.edtPassword);
+        edtSecureCode = (MaterialEditText) findViewById(R.id.edtSecureCode);
 
         btnSignUp = (Button) findViewById(R.id.btn_signup);
 
@@ -52,7 +53,9 @@ public class SignUp extends AppCompatActivity {
                                 Toast.makeText(SignUp.this, "Phone already exist !!", Toast.LENGTH_SHORT).show();
                             } else {
                                 progressDialog.dismiss();
-                                User user = new User(edtName.getText().toString(), edtPassword.getText().toString());
+                                User user = new User(edtName.getText().toString(),
+                                        edtPassword.getText().toString(),
+                                        edtSecureCode.getText().toString());
                                 table_user.child(edtPhone.getText().toString()).setValue(user);
                                 Toast.makeText(SignUp.this, "Sign up successfully", Toast.LENGTH_SHORT).show();
                                 finish();

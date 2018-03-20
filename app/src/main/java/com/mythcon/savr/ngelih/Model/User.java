@@ -9,14 +9,16 @@ public class User {
     private String pass;
     private String phone;
     private String IsStaff;
+    private String secureCode;
 
     public User() {
     }
 
-    public User(String name, String pass) {
+    public User(String name, String pass, String secureCode) {
         this.name = name;
         this.pass = pass;
         IsStaff = "false";
+        this.secureCode = secureCode;
     }
 
     public String getPhone() {
@@ -49,5 +51,13 @@ public class User {
 
     public void setIsStaff(String isStaff) {
         IsStaff = isStaff;
+    }
+
+    public String getSecureCode() {
+        return secureCode;
+    }
+
+    public void setSecureCode(String secureCode) {
+        this.secureCode = secureCode;
     }
 }
