@@ -29,6 +29,8 @@ import com.mythcon.savr.ngelih.Service.ListenOrder;
 import com.mythcon.savr.ngelih.ViewHolder.MenuViewHolder;
 import com.squareup.picasso.Picasso;
 
+import io.paperdb.Paper;
+
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -52,6 +54,10 @@ public class Home extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Menu");
         setSupportActionBar(toolbar);
+
+        //init Paper
+        Paper.init(this);
+
         //init FIrebase
         database = FirebaseDatabase.getInstance();
         category = database.getReference("Category");
@@ -165,6 +171,11 @@ public class Home extends AppCompatActivity
             Intent orderIntent = new Intent(Home.this,OrderStatus.class);
             startActivity(orderIntent);
         } else if (id == R.id.nav_log_out) {
+
+            //Delete Remember user and pass
+            Paper.book().destroy();
+
+            //logout
             Intent signIn = new Intent(Home.this, SignIn.class);
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(signIn);

@@ -27,6 +27,8 @@ public class Common {
     }
 
     public static final String DELETE = "Delete";
+    public static final String USER_KEY = "User";
+    public static final String PASSWORD_KEY = "Password";
 
     public static boolean isConnectedToInternet(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -42,4 +44,6 @@ public class Common {
         }
         return false;
     }
+
+
 }
