@@ -44,5 +44,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.github.rey5137:material:1.2.4'
     compile 'io.paperdb:paperdb:2.1'
+    compile 'com.stepstone.apprating:app-rating:2.0.0'
 }
 apply plugin: 'com.google.gms.google-services'
