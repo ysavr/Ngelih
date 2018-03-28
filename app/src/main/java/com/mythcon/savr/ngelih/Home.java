@@ -3,7 +3,6 @@ package com.mythcon.savr.ngelih;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -22,9 +21,11 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.mythcon.savr.ngelih.Common.Common;
 import com.mythcon.savr.ngelih.Interface.ItemClickListener;
 import com.mythcon.savr.ngelih.Model.Category;
+import com.mythcon.savr.ngelih.Model.Token;
 import com.mythcon.savr.ngelih.Service.ListenOrder;
 import com.mythcon.savr.ngelih.ViewHolder.MenuViewHolder;
 import com.squareup.picasso.Picasso;
@@ -92,9 +93,19 @@ public class Home extends AppCompatActivity
         layoutManager = new LinearLayoutManager(this);
         recycler_menu.setLayoutManager(layoutManager);
 
-        //Register Service
+/*        //Register Service
         Intent service = new Intent(Home.this, ListenOrder.class);
         startService(service);
+*/
+        //Menambahkan Token Saat Login
+        updateToken(FirebaseInstanceId.getInstance().getToken());
+    }
+
+    private void updateToken(String token) { //Menambahkan Token Saat Login
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference tokens = db.getReference("Tokens");
+        Token dataToken = new Token(token,false);  //false karena token dikirim dari Client
+        tokens.child(Common.currentUser.getPhone()).setValue(dataToken);
     }
 
     private void loadMenu() {

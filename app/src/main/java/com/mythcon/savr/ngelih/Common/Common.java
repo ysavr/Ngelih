@@ -5,6 +5,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.mythcon.savr.ngelih.Model.User;
+import com.mythcon.savr.ngelih.Remote.APIService;
+import com.mythcon.savr.ngelih.Remote.RetrofitClient;
 
 /**
  * Created by SAVR on 20/02/2018.
@@ -13,6 +15,12 @@ import com.mythcon.savr.ngelih.Model.User;
 
 public class Common {
     public static User currentUser;
+
+    private static final String BASE_URL = "https://fcm.googleapis.com/";
+
+    public static APIService getFCMService(){
+        return RetrofitClient.getClient(BASE_URL).create(APIService.class);
+    }
 
     public static String convertOrderStatus(String status) {
         if(status == null) {
