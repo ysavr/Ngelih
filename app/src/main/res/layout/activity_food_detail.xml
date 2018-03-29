@@ -55,6 +55,19 @@
         app:layout_anchorGravity="bottom|right|end"
         app:useCompatPadding="true"/>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_rating"
+        app:backgroundTint="@android:color/white"
+        android:src="@drawable/ic_star_black_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        app:layout_anchor="@id/app_bar_layout"
+        app:layout_anchorGravity="bottom|right|start"
+        app:useCompatPadding="true"
+        android:layout_marginBottom="8dp"/>
+
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
@@ -68,50 +81,52 @@
             android:layout_height="wrap_content">
 
             <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="5dp"
-            app:cardUseCompatPadding="true">
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/food_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:padding="12dp"
-                    android:text="Food Name"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                app:cardElevation="5dp"
+                android:layout_marginTop="8dp"
+                app:cardUseCompatPadding="true">
 
                 <LinearLayout
-                    android:id="@+id/layout_price"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginLeft="8dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_money"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/food_price"
-                        android:layout_width="0dp"
-                        android:layout_weight="9"
+                        android:id="@+id/food_name"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1,0000"
+                        android:layout_marginTop="8dp"
+                        android:padding="12dp"
+                        android:text="Food Name"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="22sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_price"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_money"/>
+
+                        <TextView
+                            android:id="@+id/food_price"
+                            android:layout_width="0dp"
+                            android:layout_weight="9"
+                            android:layout_height="wrap_content"
+                            android:text="1,0000"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
                 </LinearLayout>
 
                 <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
@@ -135,16 +150,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/food_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:lineSpacingMultiplier="1.5"
-                    android:padding="12dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    android:text="Description"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RatingBar
+                        android:id="@+id/ratingBar"
+                        android:rating="0"
+                        android:max="5"
+                        android:isIndicator="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/food_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:lineSpacingMultiplier="1.5"
+                        android:padding="12dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
+                        android:text="Description"/>
+
+                </LinearLayout>
+
             </android.support.v7.widget.CardView>
 
         </LinearLayout>

@@ -47,6 +47,35 @@
             app:met_primaryColor="@android:color/white"
             app:met_singleLineEllipsis="true"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <com.rey.material.widget.CheckBox
+                android:id="@+id/checkRemember"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="Remember me"
+                android:textColor="@android:color/white"
+                app:cbd_strokeColor="@android:color/white"
+                app:cbd_tickColor="@color/colorPrimaryDark"
+                style="@style/Material.Drawable.CheckBox" />
+
+            <TextView
+                android:id="@+id/txtForgotPass"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/forgot_password"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <info.hoang8f.widget.FButton
@@ -60,7 +89,7 @@
         android:layout_margin="8dp"
         android:layout_alignParentBottom="true"
         app:shadowColor="@android:color/black"
-        app:buttonColor="@color/colorSignIn"
+        app:fButtonColor="@color/colorSignIn"
         app:shadowEnabled="true"
         app:shadowHeight="5dp"
         app:cornerRadius="4dp"/>
