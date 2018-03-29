@@ -92,7 +92,7 @@
         android:layout_margin="8dp"
         android:layout_alignParentBottom="true"
         app:shadowColor="@android:color/black"
-        app:buttonColor="@color/colorSignUp"
+        app:fButtonColor="@color/colorSignUp"
         app:shadowEnabled="true"
         app:shadowHeight="5dp"
         app:cornerRadius="4dp"/>

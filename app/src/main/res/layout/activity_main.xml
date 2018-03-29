@@ -43,7 +43,7 @@
             android:textColor="@android:color/white"
             android:layout_margin="8dp"
             app:shadowColor="@android:color/black"
-            app:buttonColor="@color/colorSignUp"
+            app:fButtonColor="@color/colorSignUp"
             app:shadowEnabled="true"
             app:shadowHeight="5dp"
             app:cornerRadius="4dp"/>
@@ -57,7 +57,7 @@
             android:textColor="@android:color/white"
             android:layout_margin="8dp"
             app:shadowColor="@android:color/black"
-            app:buttonColor="@color/colorSignIn"
+            app:fButtonColor="@color/colorSignIn"
             app:shadowEnabled="true"
             app:shadowHeight="5dp"
             app:cornerRadius="4dp"/>

@@ -59,11 +59,12 @@
                 android:layout_margin="8dp"
                 android:layout_alignParentBottom="true"
                 app:shadowColor="@android:color/black"
-                app:buttonColor="@color/colorSignIn"
+                app:fButtonColor="@color/colorSignIn"
                 app:shadowEnabled="true"
                 app:shadowHeight="5dp"
                 app:cornerRadius="4dp"/>
         </RelativeLayout>
+
     </android.support.v7.widget.CardView>
 
 
